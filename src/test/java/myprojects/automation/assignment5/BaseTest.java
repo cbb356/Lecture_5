@@ -1,5 +1,7 @@
 package myprojects.automation.assignment5;
 
+import myprojects.automation.assignment5.utils.DriverFactory;
+import myprojects.automation.assignment5.utils.logging.EventHandler;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -8,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,11 +30,13 @@ public abstract class BaseTest {
      */
     @BeforeClass
     @Parameters({"selenium.browser", "selenium.grid"})
-    public void setUp(@Optional("chrome") String browser, @Optional("") String gridUrl) {
-        // TODO create WebDriver instance according to passed parameters
-        // driver = new EventFiringWebDriver(....);
-        // driver.register(new EventHandler());
-        // ...
+    public void setUp(@Optional("chrome") String browser, @Optional("") String gridUrl) throws MalformedURLException {
+
+        WebDriver newDriver = ("".equals(gridUrl)) ?
+                DriverFactory.initDriver(browser) : DriverFactory.initDriver(browser, gridUrl);
+
+        driver = new EventFiringWebDriver(newDriver);
+        driver.register(new EventHandler());
 
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
