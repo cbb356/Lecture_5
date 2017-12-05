@@ -1,6 +1,7 @@
 package myprojects.automation.assignment5.tests;
 
 import myprojects.automation.assignment5.BaseTest;
+import myprojects.automation.assignment5.model.ProductData;
 import myprojects.automation.assignment5.utils.Properties;
 import org.junit.Assert;
 import org.testng.annotations.DataProvider;
@@ -12,19 +13,19 @@ public class PlaceOrderTest extends BaseTest {
 
     @Test
     public void checkSiteVersion() {
-        actions.openPage(Properties.getBaseUrl());
-        Assert.assertEquals("The uncorrect version of site opened", isMobileTesting, actions.isMobileVersion());
-
-        // TODO open main page and validate website version
+        actions.openMainPage(Properties.getBaseUrl());
+        Assert.assertEquals("The non-correct version of site opened", isMobileTesting, actions.isMobileVersion());
+        log("The version of site is correct");
     }
 
     @Test
     public void createNewOrder() {
-        // TODO implement order creation test
+        actions.openMainPage(Properties.getBaseUrl());
+        actions.openRandomProduct();
+        log("Random Product opened");
 
-        // open random product
-
-        // save product parameters
+        ProductData productData = actions.getOpenedProductInfo();
+        log("Product Parameters saved");
 
         // add product to Cart and validate product information in the Cart
 

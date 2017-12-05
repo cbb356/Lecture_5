@@ -29,4 +29,11 @@
             <class name="myprojects.automation.assignment5.tests.PlaceOrderTest" />
         </classes>
     </test>
+    <!--<test name="Create New Order [PhantomJS]" >
+        <parameter name="selenium.browser" value="phantomjs" />
+        <parameter name="selenium.grid" value="http://localhost:4444/wd/hub" />
+        <classes>
+            <class name="myprojects.automation.assignment5.tests.PlaceOrderTest" />
+        </classes>
+    </test>-->
 </suite>

@@ -21,19 +21,28 @@ public class DataConverter {
      * @return Parsed numeric value.
      */
     public static int parseStockValue(String label) {
-        Matcher qtyMatcher = Pattern.compile("^(\\d*)").matcher(label);
+        int s = label.length();
+        if (s < 8) {
+            label = label.substring(0, 1);
+        } else {
+            label = label.substring(0, s - 7);
+        }
+        return Integer.valueOf(label);
+
+        /*Matcher qtyMatcher = Pattern.compile("^(\\d*)").matcher(label);
         Assert.assertTrue(qtyMatcher.find(), "Unable to extract In Stock (quantity) value!");
-        return Integer.parseInt(qtyMatcher.group(1));
+        return Integer.parseInt(qtyMatcher.group(1));*/
     }
 
     /**
      * Extracts price value from price labels.
      *
-     * @param label The content of some label with price value.
      * @return Parsed float value of the price.
      */
     public static float parsePriceValue(String label) {
-        Matcher priceMatcher = Pattern.compile("^(.*) ₴$").matcher(label);
+        return Float.valueOf(label);
+
+        /*Matcher priceMatcher = Pattern.compile("^(.*) ₴$").matcher(label);
         Assert.assertTrue(priceMatcher.find(), "Unable to extract price value!");
 
         try {
@@ -42,7 +51,7 @@ public class DataConverter {
             return new DecimalFormat("#0.00", separators).parse(priceMatcher.group(1)).floatValue();
         } catch (ParseException e) {
             throw  new RuntimeException(e);
-        }
+        }*/
     }
 
     /**
