@@ -29,9 +29,6 @@ public class DataConverter {
         }
         return Integer.valueOf(label);
 
-        /*Matcher qtyMatcher = Pattern.compile("^(\\d*)").matcher(label);
-        Assert.assertTrue(qtyMatcher.find(), "Unable to extract In Stock (quantity) value!");
-        return Integer.parseInt(qtyMatcher.group(1));*/
     }
 
     /**
@@ -40,18 +37,10 @@ public class DataConverter {
      * @return Parsed float value of the price.
      */
     public static float parsePriceValue(String label) {
-        return Float.valueOf(label);
+        label = label.replace(',','.');
+        int s = label.length();
+        return Float.valueOf(label.substring(0, s-2));
 
-        /*Matcher priceMatcher = Pattern.compile("^(.*) ₴$").matcher(label);
-        Assert.assertTrue(priceMatcher.find(), "Unable to extract price value!");
-
-        try {
-            DecimalFormatSymbols separators = new DecimalFormatSymbols();
-            separators.setDecimalSeparator(',');
-            return new DecimalFormat("#0.00", separators).parse(priceMatcher.group(1)).floatValue();
-        } catch (ParseException e) {
-            throw  new RuntimeException(e);
-        }*/
     }
 
     /**
